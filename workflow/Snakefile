@@ -1,0 +1,17 @@
+__author__ = "Martin Rippin"
+__copyright__ = "Copyright 2022, Martin Rippin"
+__email__ = "martin.rippin@igp.uu.se"
+__license__ = "GPL-3"
+
+
+include: "rules/common.smk"
+include: "rules/bcftools.smk"
+include: "rules/bwa.smk"
+include: "rules/get_interval_file.smk"
+include: "rules/picard.smk"
+include: "rules/samtools.smk"
+
+
+rule all:
+    input:
+        compile_output_list,
