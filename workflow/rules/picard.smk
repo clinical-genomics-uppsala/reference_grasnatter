@@ -15,3 +15,18 @@ rule picard_create_sequence_dictionary:
         "docker://hydragenetics/picard:2.25.0"
     wrapper:
         "0.84.0/bio/picard/createsequencedictionary"
+
+
+rule picard_interval_list_to_bed:
+    input:
+        interval_list="{file}.interval_list",
+    output:
+        bed="{file}.bed",
+    log:
+        "{file}.bed.log",
+    container:
+        "docker://hydragenetics/picard:2.25.0"
+    shell:
+        "picard IntervalListToBed "
+        "INPUT={input.interval_list} "
+        "OUTPUT={output.bed} &> {log}"

@@ -42,6 +42,7 @@ def compile_output_list(wildcards):
             "fasta.pac",
             "fasta.sa",
             "known_indels.vcf.gz",
+            "wgs.bed",
             "wgs.interval_list",
         ]
     ]
