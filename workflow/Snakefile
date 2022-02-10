@@ -8,8 +8,11 @@ include: "rules/common.smk"
 include: "rules/bcftools.smk"
 include: "rules/bwa.smk"
 include: "rules/get_interval_file.smk"
+include: "rules/gzip.smk"
 include: "rules/picard.smk"
+include: "rules/refseq_to_uscs.smk"
 include: "rules/samtools.smk"
+include: "rules/star.smk"
 
 
 rule all:

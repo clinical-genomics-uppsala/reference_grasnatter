@@ -41,8 +41,9 @@ def compile_output_list(wildcards):
             "fasta.fai",
             "fasta.pac",
             "fasta.sa",
+            "gtf",
             "known_indels.vcf.gz",
             "wgs.bed",
             "wgs.interval_list",
         ]
-    ]
+    ] + ["reference/GRCh38/homo_sapiens"]
