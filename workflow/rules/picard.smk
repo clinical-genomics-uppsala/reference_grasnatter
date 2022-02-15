@@ -6,13 +6,17 @@ __license__ = "GPL-3"
 
 rule picard_create_sequence_dictionary:
     input:
-        fasta="{file}.fasta",
+        fasta="reference/{version}/{species}.fasta",
     output:
-        dictionary="{file}.dict",
+        dictionary="reference/{version}/{species}.dict",
     log:
-        "{file}.dict.log",
+        "reference/{version}/{species}.dict.log",
     container:
-        "docker://hydragenetics/picard:2.25.0"
+        config.get("picard_create_sequence_dictionary", {}).get(
+            "container", config["default_container"]
+        )
+    message:
+        "{rule}: Generate reference/{wildcards.version}/{wildcards.species}.dict"
     wrapper:
         "0.84.0/bio/picard/createsequencedictionary"
 
@@ -25,7 +29,11 @@ rule picard_interval_list_to_bed:
     log:
         "{file}.bed.log",
     container:
-        "docker://hydragenetics/picard:2.25.0"
+        config.get("picard_interval_list_to_bed", {}).get(
+            "container", config["default_container"]
+        )
+    message:
+        "{rule}: Generate {wildcards.file}.bed"
     shell:
         "picard IntervalListToBed "
         "INPUT={input.interval_list} "

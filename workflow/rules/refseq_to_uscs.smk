@@ -4,21 +4,19 @@ __email__ = "martin.rippin@scilifelab.uu.se"
 __license__ = "GPL-3"
 
 
-from snakemake.remote.HTTP import RemoteProvider as HTTPRemoteProvider
-HTTP = HTTPRemoteProvider()
-
-
 rule refseq_to_ucsc:
     input:
-        gtf="ftp.ncbi.nlm.nih.gov/refseq/H_sapiens/annotation/GRCh38_latest/refseq_identifiers/GRCh38_latest_genomic.gtf",
-        txt=HTTP.remote("https://ftp.ncbi.nlm.nih.gov/refseq/H_sapiens/annotation/GRCh38_latest/refseq_identifiers/GRCh38_latest_assembly_report.txt", keep_local=True),
+        gtf="raw/{version}/{species}.gtf",
+        txt=get_assembly_file,
     output:
-        gtf="reference/GRCh38/homo_sapiens.gtf",
+        gtf="reference/{version}/{species}.gtf",
     params:
         regions=get_chromosomes,
     log:
-        "reference/GRCh38/homo_sapiens.gtf.log",
+        "reference/{version}/{species}.gtf.log",
     container:
-        "docker://python:3.9.9-slim-buster"
+        config.get("refseq_to_ucsc", {}).get("container", config["default_container"])
+    message:
+        "{rule}: Generate reference/{wildcards.version}/{wildcards.species}.gtf containing only major chromosomes"
     script:
         "../scripts/refseq_to_ucsc.py"

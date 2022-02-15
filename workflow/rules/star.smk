@@ -9,12 +9,16 @@ rule star_genome_generate:
         fasta="reference/{version}/{species}.fasta",
         gtf="reference/{version}/{species}.gtf",
     output:
-        genome_lib=directory("reference/{version}/{species}"),
+        genome_lib=directory("reference/{version}/{species}_star"),
     params:
         extra="--sjdbGTFtagExonParentTranscript Parent --genomeSAindexNbases 6",
     log:
         "reference/{version}/{species}.log",
     container:
-        "docker://hydragenetics/star:2.7.10a"
+        config.get("star_genome_generate", {}).get(
+            "container", config["default_container"]
+        )
+    message:
+        "{rule}: Generate STAR index for reference/{wildcards.version}/{wildcards.species}.fasta"
     wrapper:
         "0.84.0/bio/star/index"

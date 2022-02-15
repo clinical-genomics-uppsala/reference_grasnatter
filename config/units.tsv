@@ -1,0 +1,6 @@
+species	version	type	provider	path
+homo_sapiens	GRCh38	assembly	https	ftp.ncbi.nlm.nih.gov/refseq/H_sapiens/annotation/GRCh38_latest/refseq_identifiers/GRCh38_latest_assembly_report.txt
+homo_sapiens	GRCh38	fasta	https	zenodo.org/record/4684553/files/GRCh38.u2af1_fix.v1.2020_04_01.fa.gz
+homo_sapiens	GRCh38	gtf	https	ftp.ncbi.nlm.nih.gov/refseq/H_sapiens/annotation/GRCh38_latest/refseq_identifiers/GRCh38_latest_genomic.gtf.gz
+homo_sapiens	GRCh38	known_indels	gs	genomics-public-data/resources/broad/hg38/v0/Homo_sapiens_assembly38.known_indels.vcf.gz
+homo_sapiens	GRCh38	wgs	gs	genomics-public-data/resources/broad/hg38/v0/wgs_calling_regions.hg38.interval_list

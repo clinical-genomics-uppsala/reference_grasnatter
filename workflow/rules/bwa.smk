@@ -16,6 +16,8 @@ rule bwa_index:
     log:
         "{file}.fasta.bwt.log",
     container:
-        "docker://hydragenetics/bwa_mem:0.7.17"
+        config.get("bwa_index", {}).get("container", config["default_container"])
+    message:
+        "{rule}: Generate bwa index files for {wildcards.file}.fasta"
     wrapper:
         "0.84.0/bio/bwa/index"

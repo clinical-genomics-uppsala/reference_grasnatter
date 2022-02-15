@@ -1,0 +1,15 @@
+units: "config/units.tsv"
+
+default_container: "docker://hydragenetics/common:0.0.1"
+
+bwa_index:
+  container: "docker://hydragenetics/bwa_mem:0.7.17"
+
+picard_create_sequence_dictionary:
+  container: "docker://hydragenetics/picard:2.25.0"
+
+picard_interval_list_to_bed:
+  container: "docker://hydragenetics/picard:2.25.0"
+
+star_genome_generate:
+  container: "docker://hydragenetics/star:2.7.10a"

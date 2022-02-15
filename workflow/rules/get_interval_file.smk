@@ -4,20 +4,20 @@ __email__ = "martin.rippin@scilifelab.uu.se"
 __license__ = "GPL-3"
 
 
-from snakemake.remote.GS import RemoteProvider as GSRemoteProvider
-GS = GSRemoteProvider()
-
-
 rule get_interval_file:
     input:
-        interval_list=GS.remote("genomics-public-data/resources/broad/hg38/v0/wgs_calling_regions.hg38.interval_list"),
+        interval_list=get_remote_file,
     output:
-        interval_list="reference/GRCh38/homo_sapiens.wgs.interval_list",
+        interval_list="reference/{version}/{species}.{type}.interval_list",
     params:
         regions=get_chromosomes,
     log:
-        "reference/GRCh38/homo_sapiens.wgs.interval_list.log",
+        "reference/{version}/{species}.{type}.interval_list.log",
     container:
-        "docker://python:3.9.9-slim-buster"
+        config.get("get_interval_file", {}).get(
+            "container", config["default_container"]
+        )
+    message:
+        "{rule}: Generate reference/{wildcards.version}/{wildcards.species}.{wildcards.type}.interval_list containing only major chromosomes"
     script:
         "../scripts/get_interval_file.py"

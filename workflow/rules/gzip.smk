@@ -4,18 +4,16 @@ __email__ = "martin.rippin@scilifelab.uu.se"
 __license__ = "GPL-3"
 
 
-from snakemake.remote.HTTP import RemoteProvider as HTTPRemoteProvider
-HTTP = HTTPRemoteProvider()
-
-
 rule gunzip:
     input:
-        gz=HTTP.remote("https://ftp.ncbi.nlm.nih.gov/refseq/H_sapiens/annotation/GRCh38_latest/refseq_identifiers/GRCh38_latest_genomic.gtf.gz", keep_local=True),
+        gz=get_remote_file,
     output:
-        gtf=temp("ftp.ncbi.nlm.nih.gov/refseq/H_sapiens/annotation/GRCh38_latest/refseq_identifiers/GRCh38_latest_genomic.gtf"),
+        ugz=temp("raw/{version}/{species}.{type}"),
     log:
-        "ftp.ncbi.nlm.nih.gov/refseq/H_sapiens/annotation/GRCh38_latest/refseq_identifiers/GRCh38_latest_genomic.gtf.log",
+        "raw/{version}/{species}.{type}.log",
     container:
-        "docker://hydragenetics/common:0.0.1"
+        config.get("gunzip", {}).get("container", config["default_container"])
+    message:
+        "{rule}: Unzip to raw/{wildcards.version}/{wildcards.species}.{wildcards.type}"
     shell:
-        "gunzip {input.gz} &> {log}"
+        "(gunzip -c {input.gz} > {output.ugz}) &> {log}"

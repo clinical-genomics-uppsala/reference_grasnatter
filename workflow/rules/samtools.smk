@@ -4,25 +4,6 @@ __email__ = "martin.rippin@scilifelab.uu.se"
 __license__ = "GPL-3"
 
 
-from snakemake.remote.GS import RemoteProvider as GSRemoteProvider
-GS = GSRemoteProvider()
-
-
-rule samtools_faidx_regions:
-    input:
-        fasta=GS.remote("genomics-public-data/resources/broad/hg38/v0/Homo_sapiens_assembly38.fasta"),
-    output:
-        fasta="reference/GRCh38/homo_sapiens.fasta",
-    params:
-        regions=get_chromosomes,
-    log:
-        "reference/GRCh38/homo_sapiens.fasta.log",
-    container:
-        "docker://hydragenetics/common:0.0.1"
-    shell:
-        "samtools faidx -o {output.fasta} {input.fasta} {params.regions}"
-
-
 rule samtools_faidx_index:
     input:
         fasta="reference/{version}/{species}.fasta",
@@ -31,6 +12,32 @@ rule samtools_faidx_index:
     log:
         "reference/{version}/{species}.fasta.fai.log",
     container:
-        "docker://hydragenetics/common:0.0.1"
+        config.get("samtools_faidx_index", {}).get(
+            "container", config["default_container"]
+        )
+    message:
+        "{rule}: Generate fai index for reference/{wildcards.version}/{wildcards.species}.fasta"
     wrapper:
         "0.84.0/bio/samtools/faidx"
+
+
+rule samtools_faidx_regions:
+    input:
+        fasta="raw/{version}/{species}.fasta",
+    output:
+        fasta="reference/{version}/{species}.fasta",
+    params:
+        regions=get_chromosomes,
+    log:
+        "reference/{version}/{species}.samtools.log",
+    container:
+        config.get("samtools_faidx_regions", {}).get(
+            "container", config["default_container"]
+        )
+    message:
+        "{rule}: Generate reference/{wildcards.version}/{wildcards.species}.fasta containing only major chromosomes"
+    shell:
+        "(samtools faidx "
+        "-o {output.fasta} "
+        "{input.fasta} "
+        "{params.regions}) &> {log}"
