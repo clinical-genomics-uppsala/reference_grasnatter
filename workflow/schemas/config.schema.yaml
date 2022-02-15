@@ -1,0 +1,73 @@
+$schema: "http://json-schema.org/draft-04/schema#"
+description: snakemake configuration file
+type: object
+properties:
+  units:
+    type: string
+    description: Path to units.tsv file
+  default_container:
+    type: string
+    description: name or path to a default docker/singularity container
+  bcftools_view:
+    type: object
+    properties:
+      container:
+        type: string
+        description: name or path to docker/singularity container
+  bwa_index:
+    type: object
+    properties:
+      container:
+        type: string
+        description: name or path to docker/singularity container
+  get_interval_file:
+    type: object
+    properties:
+      container:
+        type: string
+        description: name or path to docker/singularity container
+  gunzip:
+    type: object
+    properties:
+      container:
+        type: string
+        description: name or path to docker/singularity container
+  picard_create_sequence_dictionary:
+    type: object
+    properties:
+      container:
+        type: string
+        description: name or path to docker/singularity container
+  picard_interval_list_to_bed:
+    type: object
+    properties:
+      container:
+        type: string
+        description: name or path to docker/singularity container
+  refseq_to_ucsc:
+    type: object
+    properties:
+      container:
+        type: string
+        description: name or path to docker/singularity container
+  samtools_faidx_index:
+    type: object
+    properties:
+      container:
+        type: string
+        description: name or path to docker/singularity container
+  samtools_faidx_regions:
+    type: object
+    properties:
+      container:
+        type: string
+        description: name or path to docker/singularity container
+  star_genome_generate:
+    type: object
+    properties:
+      container:
+        type: string
+        description: name or path to docker/singularity container
+  required:
+    - units
+    - default_container

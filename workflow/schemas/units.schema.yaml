@@ -1,0 +1,24 @@
+$schema: "http://json-schema.org/draft-04/schema#"
+description: row represents one dataset
+properties:
+  species:
+    type: string
+    description: species name as underscore separated string
+  version:
+    type: string
+    description: assembly version number
+  type:
+    type: string
+    description: unit type (fasta, known_indels, wgs, gtf, assembly)
+  provider:
+    type: string
+    description: remote provider (https, gs)
+  path:
+    type: string
+    description: file path excluding protocol
+required:
+  - species
+  - version
+  - type
+  - provider
+  - path
