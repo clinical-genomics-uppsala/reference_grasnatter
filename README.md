@@ -15,7 +15,7 @@ will be downloaded and modified.
 
 To run this workflow, the following tools need to be available:
 
-[![google-cloud-sdk](https://img.shields.io/badge/google-cloud-sdk-371.0.0-blue)](https://cloud.google.com/sdk)
+[![google-cloud-sdk](https://img.shields.io/badge/google_cloud_sdk-371.0.0-blue)](https://cloud.google.com/sdk)
 ![python](https://img.shields.io/badge/python-3.8-blue)
 [![snakemake](https://img.shields.io/badge/snakemake-6.10.0-blue)](https://snakemake.readthedocs.io/en/stable/)
 [![singularity](https://img.shields.io/badge/singularity-3.7-blue)](https://sylabs.io/docs/)
@@ -26,13 +26,13 @@ In `config/` is an example of `units.tsv` which can be modified according to spe
 Please specify a species (underscore separated), reference version, type (meaning type of file
 which allows the workflow to adequately process the input), provider (gs = GoogleCloud, https =
 any https-file-server) and file path excluding the protocol. For `type`, the following categories
-*MUST* be provided:
+**MUST** be provided:
 
-1. *assembly:* assembly report file
-2. *fasta:* `.fasta` assembly file
-3. *gtf:* `.gtf` file containing annotations
-4. *known_indels:* `.vcf` file containing known indels
-5. *wgs/wes:* `interval_list` file containing relevant regions for your analysis (wgs/wes)
+1. **assembly:** assembly report file
+2. **fasta:** `.fasta` assembly file
+3. **gtf:** `.gtf` file containing annotations
+4. **known_indels:** `.vcf` file containing known indels
+5. **wgs/wes:** `interval_list` file containing relevant regions for your analysis (wgs/wes)
 
 ## :rocket: Usage
 
